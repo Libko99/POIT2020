@@ -1,0 +1,288 @@
+<!doctype html>                                   
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>LB-MeteoStanica</title>
+    <!-- http://jqueryui.com/tabs/#mouseover -->
+    <link rel="stylesheet" href="static/jquery-ui.min.css">
+    <script type="text/javascript" src="//code.jquery.com/jquery-1.4.2.min.js"></script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.5/socket.io.min.js"></script>
+    <script src="static/jquery-3.2.1.min.js"></script>
+    <script src="static/jquery-ui.min.js"></script>
+    <script src="static/libs/jquery-1.11.1.min.js"></script>
+    <script src="static/plotly-latest.min.js"></script>
+    <script type="text/javascript" charset="utf-8">
+      
+     $(document).ready(function(){
+     var layout = {
+          title: 'TEPLOTA [°C]',
+          xaxis: {
+            title: 'Čas',
+            range: [0,48]
+          },
+          yaxis: {
+            title: 'T',
+            range: [5,25]
+          }
+        };
+
+     $('form#rec').submit(function(event) {
+       var $link = "/read/"+$('#value').val();
+       console.log($link);
+     $.ajax({
+       type: "GET",
+       url: $link,
+       success:function(data) 
+       { console.log(data);  
+         data = JSON.parse(data);
+         console.log(data);    
+         n = Object.keys(data).length;
+         console.log(n);
+        
+         xl = [];
+         yl = [];
+
+         for (var i=0; i< n; i++){
+           xl.push(data[i].t);
+           yl.push(data[i].x); }
+         let trace = [{
+            x: xl,
+            y: yl }];   
+         Plotly.newPlot($('#plotdiv')[0], trace,layout);         
+       }
+     }).done(function( o ) {
+       // do something
+     });
+      return false;}); 
+ 
+
+     $(document).ready(function(){
+     var layout2 = {
+          title: 'Teplota fehrenheit [°F]',
+          xaxis: {
+            title: 'Čas',
+            range: [0,48]
+          },
+          yaxis: {
+            title: 'T_F',
+            range: [35,75]
+          }
+        };
+
+    
+     $('form#rec2').submit(function(event) {
+       var $link = "/read/"+$('#value2').val();
+       console.log($link);
+     $.ajax({
+       type: "GET",
+       url: $link,
+       success:function(data) 
+       { console.log(data);  
+         data = JSON.parse(data);
+         console.log(data);    
+         n = Object.keys(data).length;
+         console.log(n);
+        
+         xl = [];
+         yl = [];
+
+         for (var i=0; i< n; i++){
+           xl.push(data[i].t);
+           yl.push(data[i].y); }
+         let trace = [{
+             x: xl,
+             y: yl }];   
+         Plotly.newPlot($('#plotdiv1')[0], trace,layout2);         
+       }
+     }).done(function( o ) {
+       // do something
+     });
+       return false;});
+    
+     $(document).ready(function(){
+     var layout3 = {
+          title: 'VLHKOSŤ [%]',
+          xaxis: {
+            title: 'Čas',
+            range: [0,48]
+          },
+          yaxis: {
+            title: 'Vlhkosť',
+            range: [0,100]
+          }
+        };
+
+    
+     $('form#rec1').submit(function(event) {
+       var $link = "/read/"+$('#value1').val();
+       console.log($link);
+     $.ajax({
+       type: "GET",
+       url: $link,
+       success:function(data) 
+       { console.log(data);  
+         data = JSON.parse(data);
+         console.log(data);    
+         n = Object.keys(data).length;
+         console.log(n);
+        
+         xl = [];
+         yl = [];
+
+         for (var i=0; i< n; i++){
+           xl.push(data[i].t);
+           yl.push(data[i].z); }
+         let trace = [{
+            x: xl,
+            y: yl }];   
+         Plotly.newPlot($('#plotdiv2')[0], trace,layout3);         
+        }
+      }).done(function( o ) {
+       // do something
+      });
+       return false});
+      
+     $(document).ready(function(){
+     var layout4 = {
+          title: 'TEPLOTA [°C]',
+          xaxis: {
+            title: 'Čas',
+            range: [0,270]
+          },
+          yaxis: {
+            title: 'T',
+            range: [5,25]
+          }
+        };
+
+    
+     $.ajax({
+       type: "GET",
+       url: "/read/9",
+       success:function(data) 
+       { console.log(data);  
+         data = JSON.parse(data);
+         console.log(data);    
+         n = Object.keys(data).length;
+         console.log(n);
+        
+         xl1 = [];
+         yl1 = [];
+
+         for (var i=0; i< n; i++){
+           xl1.push(data[i].t);
+           yl1.push(data[i].x); }
+         let trace = [{
+            x: xl1,
+            y: yl1 }];   
+         Plotly.newPlot($('#plotdiv3')[0], trace,layout4);         
+       }
+     }).done(function( o ) {
+       // do something
+     });
+     
+     $(document).ready(function(){
+     var layout5 = {
+          title: 'VLHKOSŤ [%]',
+          xaxis: {
+            title: 'Čas',
+            range: [0,270]
+          },
+          yaxis: {
+            title: 'Vlhkosť',
+            range: [0,100]
+          }
+        };
+
+    
+     $.ajax({
+       type: "GET",
+       url: "/read/9",
+       success:function(data) 
+       { console.log(data);  
+         data = JSON.parse(data);
+         console.log(data);    
+         n = Object.keys(data).length;
+         console.log(n);
+        
+         xl1 = [];
+         yl1 = [];
+
+         for (var i=0; i< n; i++){
+           xl1.push(data[i].t);
+           yl1.push(data[i].z); }
+         let trace = [{
+            x: xl1,
+            y: yl1 }];   
+         Plotly.newPlot($('#plotdiv4')[0], trace   ,layout5);         
+        }
+      }).done(function( o ) {
+       // do something
+      });
+     
+     });
+     });
+     });
+     });
+     });
+   
+     $( function() {
+        $( "#tabs" ).tabs({
+          event: "mouseover"
+        });
+      } );
+ 
+ 
+  </script>
+  
+  </head>
+  
+  <body>
+   
+    <div id="tabs">
+      <ul>
+        <li><a href="#tabs-1">TEPLOTA</a></li>
+        <li><a href="#tabs-2">VLHKOSŤ</a></li>
+        <li><a href="#tabs-3">TEPLOTA FEHRENHEIT</a></li>
+        <li><a href="#tabs-4">CELKOVO</a></li>
+      </ul>
+      <div id="tabs-1">
+        <h1>História meraných hodnôt od 24.05.-31.05 2020</h1>
+          <h2>Voľba dní:</h2>
+          <form id="rec" method="POST" action='#'>
+            <input type="text" name="value" id="value" placeholder="Deň No.:">
+            <input type="submit" value="Set">
+          </form>
+          <h2>Zobrazenie:</h2>
+          <div id="plotdiv" style="width:800px;height:450px; display: inline-block"></div>
+      </div>
+      <div id="tabs-2">
+        <h1>História meraných hodnôt od 24.05.-31.05 2020</h1>
+          <h2>Voľba dní:</h2>
+          <form id="rec1" method="POST" action='#'>
+            <input type="text" name="value" id="value1" placeholder="Deň No.:">
+            <input type="submit" value="Set">
+          </form>
+          <h2>Zobrazenie:</h2>
+          <div id="plotdiv2" style="width:800px;height:450px; display: inline-block"></div>
+      </div>
+      <div id="tabs-3">
+        <h1>História meraných hodnôt od 24.05.-31.05 2020</h1>
+          <h2>Voľba dní:</h2>
+          <form id="rec2" method="POST" action='#'>
+            <input type="text" name="value" id="value2" placeholder="Deň No.:">
+            <input type="submit" value="Set">
+          </form>
+          <h2>Zobrazenie:</h2>
+          <div id="plotdiv1" style="width:800px;height:450px; display: inline-block"></div>
+      </div>
+      <div id="tabs-4">
+        <h1>Celková história meraných hodnôt</h1>
+          <h2>Zobrazenie:</h2>
+          <div id="plotdiv3" style="width:700px;height:400px; display: inline-block"></div>
+          <div id="plotdiv4" style="width:700px;height:400px; display: inline-block"></div>
+          
+      </div>
+    </div>
+  </body>  
+</html>
